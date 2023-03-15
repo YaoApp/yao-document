@@ -1,0 +1,119 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="./iconfont/iconfont.css" />
+    <link rel="stylesheet" href="./style/navMeun.css" />
+    <link rel="stylesheet" href="./style/bootstrap.min.css" />
+    <title>数据模型</title>
+    <script src="./yao.js"></script>
+    <script src="./jquery.js"></script>
+  </head>
+
+  <body>
+    <div id="nav_meun_wrap" class="nav_meun_wrap"></div>
+
+    <div
+      id="table_div"
+      class="table-responsive"
+      style="width: 80%; margin-left: 300px; margin-top: 100px"
+    >
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>字段名称</th>
+            <th>字段类型</th>
+            <th>中文名称</th>
+            <th>备注</th>
+            <th>是否为空</th>
+            <th>Table heading</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <!-- 菜单数据 -->
+    <script>
+      const yao = new Yao();
+
+      $(document).ready(function () {
+        var meunList = GetMenu();
+      });
+      async function GetMenu() {
+        var resp = await yao.Get("/studio/menu");
+        if (resp && resp.code) {
+          var meunList = resp.meunList;
+
+          var menuDom = ""; // 树形菜单节点
+          var navMenuWrap = document.getElementById("nav_meun_wrap");
+          var classList = navMenuWrap.className.split(" ");
+          var menuDom = "";
+          menuDom += `<ul>`;
+
+          if (meunList.length) {
+            for (var i in meunList) {
+              menuDom += `<a href="#" onclick="Detail('${meunList[i].value}');" >`;
+              menuDom += `<li>`;
+              menuDom += `<i class="iconfont menu_icon ${meunList[i].icon}"></i>`;
+              menuDom += `<span class="menu_title" >${meunList[i].title}</span>`;
+              menuDom += `</li>`;
+              menuDom += `</a>`;
+            }
+          }
+          menuDom += `</ul>`;
+          navMenuWrap.innerHTML = menuDom;
+        }
+      }
+      function Detail(value) {
+        ModelDetail(value);
+      }
+      async function ModelDetail(value) {
+        var resp = await yao.Get("/studio/detail?name=" + value);
+        if (resp && resp.code == 200) {
+          var table = "";
+          table =
+            table +
+            `<table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>字段名称</th>
+            <th>字段类型</th>
+            <th>中文名称</th>
+            <th>备注</th>
+            <th>是否为空</th>
+          </tr>
+        </thead>
+        <tbody>`;
+          for (var i in resp["data"]) {
+            table =
+              table +
+              `  <tr>
+            <td>${resp["data"][i]["name"] || ""}</td>
+            <td>${resp["data"][i]["type"] || ""}</td>
+            <td>${resp["data"][i]["label"] || ""}</td>
+            <td>${resp["data"][i]["comment"] || ""}</td>
+            <td>${resp["data"][i]["nullable"] || "false"}</td>
+
+          </tr>`;
+          }
+          table =
+            table +
+            ` </tbody>
+      </table>`;
+          var table_div = document.getElementById("table_div");
+          table_div.innerHTML = table;
+        }
+      }
+    </script>
+
+    <!-- <script src="./js/meunData.js"></script> -->
+    <!-- 渲染菜单 -->
+    <!-- <script src="./js/renderMeun.js"></script> -->
+    <!-- 折叠菜单 -->
+    <!-- <script src="./js/collapseMeun.js"></script> -->
+    <!-- 折叠导航 -->
+    <!-- <script src="./js/collapseNav.js"></script> -->
+  </body>
+</html>
