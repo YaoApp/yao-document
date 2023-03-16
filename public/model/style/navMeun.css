@@ -3,12 +3,12 @@
 }
 
 #nav_meun_wrap {
-  width: 210px;
+  width: 220px;
 }
 
 .nav_meun_wrap {
   transition: width 0.28s;
-  background-color: #304156;
+  background-color: #37414c;
   height: 100%;
   position: fixed;
   top: 0;
@@ -37,7 +37,7 @@
 
 .sub_menu,
 .nav_meun_wrap ul a li {
-  line-height: 45px;
+  line-height: 30px;
 }
 
 .nav_meun_wrap li {
@@ -66,7 +66,7 @@
 }
 
 .nav_meun_wrap a li {
-  padding: 0 20px;
+  padding: 0 -5px;
 }
 
 .nav_meun_wrap li ul li .sub_menu {

@@ -14,11 +14,7 @@
   </head>
 
   <body>
-    <div
-      id="nav_meun_wrap"
-      class="nav_meun_wrap"
-      style="overflow-y: auto"
-    ></div>
+    <div id="nav_meun_wrap" class="nav_meun_wrap"></div>
 
     <div
       id="table_div"
@@ -42,42 +38,81 @@
 
     <!-- 菜单数据 -->
     <script>
+      /**
+       * <li><div class="sub_menu"><i class="iconfont menu_icon icon-iconfontcomputer"></i><span class="menu_title">电影</span><i class="iconfont arrow_icon icon-jiantou"></i>
+       * </div><ul class="hide_collapse"><a href="/movie/action">
+       * <li><i class="iconfont menu_icon "></i><span class="menu_title">动作片</span></li>
+       * </a><a href="/movie/comedy">
+       * <li><i class="iconfont menu_icon icon-iconfont20"></i><span class="menu_title">喜剧片</span></li></a></ul>
+       * </li>
+       * 
+       * 
+       *<li><div class="sub_menu"><i class="iconfont menu_icon icon-iconfont1"></i><span class="menu_title">数据模型</span><i class="iconfont arrow_icon icon-jiantou"></i>
+        </div><ul><a href="#" onclick="Detail('xiang_menu');">
+        <li><i class="iconfont menu_icon icon-iconfont1"></i><span class="menu_title">xiang_menu</span></li></a><a href="#" onclick="Detail('xiang_user');">
+          <li><i class="iconfont menu_icon icon-iconfont1"></i><span class="menu_title">xiang_user</span></li></a><a href="#" onclick="Detail('yao_demo_pet');">
+            <li><i class="iconfont menu_icon icon-iconfont1"></i><span class="menu_title">yao_demo_pet</span></li></a></ul>
+            </li>
+       * 
+       * */
+
       const yao = new Yao();
 
       $(document).ready(function () {
         var meunList = GetMenu();
       });
       async function GetMenu() {
-        var id = getUrlParam("id");
-        var resp = await yao.Get("/studio/menu?id=" + id);
+        var resp = await yao.Get("/studio/menu");
         if (resp && resp.code) {
-          var meunList = resp.meunList;
-
-          var menuDom = ""; // 树形菜单节点
           var navMenuWrap = document.getElementById("nav_meun_wrap");
           var classList = navMenuWrap.className.split(" ");
-          var menuDom = "";
-          menuDom += `<ul>`;
+          var meunList = resp.meunList;
+          var re = [
+            {
+              path: "/index.html",
+              title: "数据模型",
+              value: "#",
+              icon: "icon-iconfont1",
+              children: meunList,
+            },
+          ];
+          var menuDom = renderMenu(re);
+          navMenuWrap.innerHTML = menuDom;
+        }
+      }
 
-          if (meunList.length) {
-            for (var i in meunList) {
-              menuDom += `<a href="#" onclick="Detail('${meunList[i].value}','${id}');" >`;
+      function renderMenu(data) {
+        if (data.length) {
+          menuDom = "";
+          menuDom += `<ul class="hide_collapse">`;
+          for (var i = 0; i < data.length; i++) {
+            if (data[i].children && data[i].children.length) {
               menuDom += `<li>`;
-              menuDom += `<i class="iconfont menu_icon ${meunList[i].icon}"></i>`;
-              menuDom += `<span class="menu_title" >${meunList[i].title}</span>`;
+              menuDom += `<div class="sub_menu">`;
+              menuDom += `<i class="iconfont menu_icon ${data[i].icon}"></i>`;
+              menuDom += `<span class="menu_title">${data[i].title}</span>`;
+              menuDom += `<i class="iconfont arrow_icon icon-jiantou"></i>`;
+              menuDom += `</div>`;
+              menuDom += renderMenu(data[i].children); // 有children结构的
+              menuDom += `</li>`;
+            } else {
+              menuDom += `<a href="#" onclick="Detail('${data[i].value}');" >`;
+              menuDom += `<li>`;
+              menuDom += `<i class="iconfont menu_icon ${data[i].icon}"></i>`;
+              menuDom += `<span class="menu_title">${data[i].title}</span>`;
               menuDom += `</li>`;
               menuDom += `</a>`;
             }
           }
           menuDom += `</ul>`;
-          navMenuWrap.innerHTML = menuDom;
+          return menuDom;
         }
       }
-      function Detail(value, id) {
-        ModelDetail(value, id);
+      function Detail(value) {
+        ModelDetail(value);
       }
-      async function ModelDetail(value, id) {
-        var resp = await yao.Get("/studio/detail?name=" + value + "&id=" + id);
+      async function ModelDetail(value) {
+        var resp = await yao.Get("/studio/detail?name=" + value);
         if (resp && resp.code == 200) {
           var table = "";
           table =
@@ -112,13 +147,6 @@
           var table_div = document.getElementById("table_div");
           table_div.innerHTML = table;
         }
-      }
-
-      function getUrlParam(name) {
-        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
-        var r = window.location.search.substr(1).match(reg); //匹配目标参数
-        if (r != null) return unescape(r[2]);
-        return null; //返回参数值
       }
     </script>
 

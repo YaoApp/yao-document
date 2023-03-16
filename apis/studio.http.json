@@ -26,6 +26,17 @@
         "status": 200,
         "type": "application/json"
       }
+    },
+    {
+      "path": "/all",
+      "method": "GET",
+      "guard": "-",
+      "process": "scripts.studio.menu.All",
+      "in": [":query"],
+      "out": {
+        "status": 200,
+        "type": "application/json"
+      }
     }
   ]
 }

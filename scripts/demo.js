@@ -13,3 +13,10 @@ function Data() {
     ]
   );
 }
+/**
+ * yao run scripts.demo.Test
+ */
+function Test() {
+  var res = http.Get("www.baidu.com");
+  console.log(res);
+}
