@@ -19,7 +19,9 @@
       class="nav_meun_wrap"
       style="overflow-y: auto"
     ></div>
-
+    <h2 id="title_h" class="uk-heading-bullet" style="padding-left: 300px">
+      表格
+    </h1>
     <div
       id="table_div"
       class="table-responsive"
@@ -61,6 +63,9 @@
 
           if (meunList.length) {
             for (var i in meunList) {
+              if (i == 0) {
+                Detail(meunList[i].value, id);
+              }
               menuDom += `<a href="#" onclick="Detail('${meunList[i].value}','${id}');" >`;
               menuDom += `<li>`;
               menuDom += `<i class="iconfont menu_icon ${meunList[i].icon}"></i>`;
@@ -74,6 +79,8 @@
         }
       }
       function Detail(value, id) {
+        var title = document.getElementById("title_h");
+        title.innerHTML = value;
         ModelDetail(value, id);
       }
       async function ModelDetail(value, id) {
