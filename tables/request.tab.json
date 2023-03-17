@@ -55,10 +55,6 @@
           "width": 250,
           "name": "域名"
         },
-        {
-          "width": 250,
-          "name": "请求路径"
-        },
 
         {
           "name": "创建时间",
@@ -75,7 +71,7 @@
               "Common.openModal": {
                 "Form": {
                   "type": "edit",
-                  "model": "host"
+                  "model": "request"
                 }
               }
             }
