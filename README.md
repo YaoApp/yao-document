@@ -31,11 +31,26 @@
    ##### 把线上多个项目的模型文件汇总在一个页面 ,然后生成列表式的可视化表格, 以便于查阅
 
 
-#### 如何安装
+## 如何安装 **(建议在开发模式下和内网中使用)** :
 
 1. 克隆代码 `git clone https://github.com/YaoApp/yao-document.git`
 
-2. 添加并且配置 `.env`文件和数据库后执行:`yao migrate && yao start`
+2. 添加并且配置 `.env`文件写入如下代码  ,然后执行:`yao migrate && yao start`
+   
+ ```json
+YAO_DB_DRIVER="sqlite3"
+YAO_DB_PRIMARY="./db/yao.db"
+YAO_ENV="development"
+YAO_HOST="0.0.0.0"
+YAO_LANG="zh-cn"
+YAO_LOG="./logs/application.log"
+YAO_LOG_MODE="TEXT"
+YAO_PORT="5099"
+YAO_SESSION_FILE="./db/.session"
+YAO_SESSION_STORE="file"
+YAO_STUDIO_PORT="5077"
+
+```
 
 3. 访问 `http:127.0.0.1:5099/admin/login/admin`,账号密码: `xiang@iqka.com`,`A123456p+`
 
