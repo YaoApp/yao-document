@@ -20,7 +20,9 @@
 </p>
 
 
-<center>Yao-Document,使用Yao构建的数据模型生成表格可视化</center>
+<center>Yao-Document,使用Yao构建的数据模型生成表格可视化  </center>
+
+# **建议在开发模式下和内网中使用**
 
 ![演示](https://release-bj-1252011659.cos.ap-beijing.myqcloud.com/docs/yao-document/1679041643689.png)
 
@@ -31,7 +33,7 @@
    ##### 把线上多个项目的模型文件汇总在一个页面 ,然后生成列表式的可视化表格, 以便于查阅
 
 
-## 如何安装 **(建议在开发模式下和内网中使用)** :
+## 如何安装 :
 
 1. 克隆代码 `git clone https://github.com/YaoApp/yao-document.git`
 
