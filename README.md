@@ -54,7 +54,7 @@ YAO_STUDIO_PORT="5077"
 
 ```
 
-3. 访问 `http:127.0.0.1:5099/admin/login/admin`,账号密码: `xiang@iqka.com`,`A123456p+`
+3. 访问 `http://127.0.0.1:5099/admin/login/admin`,账号密码: `xiang@iqka.com`,`A123456p+`
 
 4. 如下图:新增您的项目域名配置和对应的项目名称 ![图片](https://release-bj-1252011659.cos.ap-beijing.myqcloud.com/docs/yao-document/1679042627908.png)
 
