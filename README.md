@@ -37,7 +37,7 @@
 
 1. 克隆代码 `git clone https://github.com/YaoApp/yao-document.git`
 
-2. 添加并且配置 `.env`文件写入如下代码  ,然后执行:`yao migrate && yao start`
+2. 添加并且配置 `.env`文件写入如下代码, 新建`db`文件夹(如果没有的话)  ,然后执行:`yao migrate && yao start`
    
  ```json
 YAO_DB_DRIVER="sqlite3"

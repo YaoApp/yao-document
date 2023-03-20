@@ -34,7 +34,6 @@ function Detail(query) {
   var url = exists["host"] + "/api/studio/detail?name=" + name;
 
   var res = http.Get(url);
-  console.log(res);
   if (res.code == 200 && res.data.code == 200) {
     var all = res.data.data;
     return {
